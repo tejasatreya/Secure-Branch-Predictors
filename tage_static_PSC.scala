@@ -222,7 +222,7 @@ class TageBranchPredictorBank(params: BoomTageParams = BoomTageParams())(implici
     to_increment
   }
 
-  def inc_u(u: UInt, alt_differs: Bool, mispredict: Bool, old_counter: Bool): UInt = {
+  def inc_u(u: UInt, alt_differs: Bool, mispredict: Bool): UInt = {
     val ctr_update = probability_func();
     
     Mux(ctr_update!=1.U,Mux(!alt_differs, u,
@@ -318,7 +318,7 @@ class TageBranchPredictorBank(params: BoomTageParams = BoomTageParams())(implici
 
         val new_u = inc_u(s1_update_meta.provider_u(w),
                           s1_update_meta.alt_differs(w),
-                          s1_update_mispredict_mask(w), true.B)
+                          s1_update_mispredict_mask(w))
         //val new_p = check_counter(new_u, s1_update_meta.provider_u(w), s1_probability_update(provider)(w))
         //s1_probability_update (provider)(w) := new_p
         s1_update_u      (provider)(w) := new_u
